@@ -1,7 +1,7 @@
 # xmouseless
 VERSION = 0.1.1
-CC      = /usr/bin/gcc
-CFLAGS  = -Wall -g
+CC      = cc
+CFLAGS  = -Wall
 LDFLAGS = -lX11 -lXtst -lpthread
 
 PREFIX = /usr/local
@@ -9,13 +9,16 @@ PREFIX = /usr/local
 SRC = xmouseless.c
 BIN = xmouseless
 
-all: $(BIN)
+all: config.h build
 
-$(BIN): $(SRC) config.h
+build:
 	$(CC) $(CFLAGS) -o $(BIN) $(SRC) $(LDFLAGS)
 
 clean:
 	rm -f $(BIN)
+
+config.h:
+	cp config.def.h config.h
 
 install: all
 	mkdir -p $(PREFIX)/bin
